@@ -1,0 +1,47 @@
+<h3 style="color: blue">{{ title }}</h3>
+<div class="mb-3">
+  <input
+    class="form-control"
+    id="prodectName"
+    placeholder="Ürün Ara"
+    [(ngModel)]="filterText"
+  />
+  <!-- bu işlemi yaparken app.module de ng modelı tanıtmamız lazım-->
+  <!-- filtertext ı ngmodele bagladıgımızda arama yapacaktır-->
+  <div *ngIf="filterText" class="form-text">
+    Şu an <strong>{{ filterText }}</strong> aradınız
+  </div>
+</div>
+
+<!-- sorch yukarı kısımda kalıyo-->
+
+<ng-template #deneme>
+  <div class="alert alert-primary" role="alert">
+    Bu Kategoride Ürün Bulunmamaktadır.
+  </div>
+</ng-template>
+
+<!--asagıda urun bulunmadıgı zaman yuıkarıdakı uyarı metni cıkarılacak-->
+
+<div *ngIf="sepet.length; else deneme">
+  <div class="row">
+    <div
+      *ngFor="let urunum of sepet | productFilter : filterText"
+      class="card"
+      style="width: 18rem"
+      class="productbox"
+    >
+      <img [src]="urunum.imageUrl" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ urunum.name | uppercase }}</h5>
+        <p class="card-text">Marka: {{ urunum.description }}</p>
+        <p class="card-text">
+          <b>Fiyat: {{ urunum.price | currency }}</b>
+        </p>
+        <a (click)="sepetten_sil(urunum)" class="btn btn-primary"
+          >Sepetten Sil</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

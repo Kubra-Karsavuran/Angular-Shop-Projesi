@@ -1,0 +1,40 @@
+<h3>Login Sayfası</h3>
+<h6 style="color: red">Ürün Ekleyebilmeniz İçin Login Olmalısınız !!!</h6>
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <!--username-->
+  <div class="mb-3">
+    <label class="form-label">Kullanıcı Adı</label>
+    <input
+      type="text"
+      class="form-control"
+      id="userName"
+      aria-describedby="emailHelp"
+      placeholder="Kullanıcı Adı"
+      required
+      autofocus
+      #userName="ngModel"
+      [(ngModel)]="model.userName"
+      name="userName"
+    />
+  </div>
+  <!--password-->
+  <div class="mb-3">
+    <label class="form-label">Şifre</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      aria-describedby="emailHelp"
+      placeholder="Şifreyi Giriniz"
+      required
+      autofocus
+      #password="ngModel"
+      [(ngModel)]="model.password"
+      name="password"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Giriş</button>
+  <!--product-add-1
+  *ngIf="isLoggedin() == true && href"
+--></form>

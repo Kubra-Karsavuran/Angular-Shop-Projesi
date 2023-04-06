@@ -1,0 +1,152 @@
+<h3 style="color: blue">{{ page_name }}</h3>
+<div class="mb-3">
+  <input
+    class="form-control"
+    id="prodectName"
+    placeholder="Ürün Ara"
+    [(ngModel)]="filterText"
+  />
+  <!-- bu işlemi yaparken app.module de ng modelı tanıtmamız lazım-->
+  <!-- filtertext ı ngmodele bagladıgımızda arama yapacaktır-->
+  <div *ngIf="filterText" class="form-text">
+    Şu an <strong>{{ filterText }}</strong> aradınız
+  </div>
+</div>
+
+<!-- sorch yukarı kısımda kalıyo-->
+
+<ng-template #deneme>
+  <div class="alert alert-primary" role="alert">
+    Bu Kategoride Ürün Bulunmamaktadır.
+  </div>
+</ng-template>
+
+<div *ngIf="yapilacak_div">
+  <div *ngIf="products.length; else deneme">
+    <div class="row">
+      <div
+        *ngFor="let urunum of products | productFilter : filterText"
+        class="card"
+        style="width: 18rem"
+        class="productbox"
+      >
+        <img [src]="urunum.imageUrl" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ urunum.name | uppercase }}</h5>
+          <p class="card-text">Marka: {{ urunum.description }}</p>
+          <p class="card-text">
+            <b>Fiyat: {{ urunum.price | currency }}</b>
+          </p>
+          <a (click)="sayfa_acma(urunum)" class="btn btn-primary"
+            >Ürünü Güncelle</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- asagıda modal bulunmaktadır-->
+
+<div *ngIf="yapilacak_modal" class="container" id="guncelleme_modal">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <form>
+        <h3 align="center">Güncelleme Formu</h3>
+        <div class="mb-3">
+          <div align="center">
+            <img [src]="veri?.imageUrl" class="card-img-top" alt="..." />
+          </div>
+          <label for="exampleInputEmail1" class="form-label">Ürün Resmi</label>
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1  "
+            required
+            [value]="veri?.imageUrl"
+            (keyup)="onKeyUpUrl($event)"
+            ([ngModal])="(update_veri?.imageUrl)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Ürün Adı</label>
+          <input
+            type="text"
+            class="form-control guncel_name"
+            id="exampleInputEmail1 guncel_name"
+            aria-describedby="emailHelp"
+            required
+            name="guncel_name"
+            [value]="veri?.name"
+            (keyup)="onKeyUpAdi($event)"
+            ([ngModal])="(update_veri?.name)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Ürün Açıklama</label
+          >
+          <input
+            type="text"
+            class="form-control guncel_description"
+            id="exampleInputPassword1 guncel_description"
+            required
+            [value]="veri?.description"
+            name="guncel_description"
+            (keyup)="onKeyUpAciklama($event)"
+            ([ngModal])="(update_veri?.description)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Ürün Fiyatı</label
+          >
+          <input
+            type="text"
+            class="form-control guncel_fiyat"
+            id="exampleInputPassword1 guncel_fiyat"
+            required
+            [value]="veri?.price"
+            name="guncel_price"
+            (keyup)="onKeyUpFiyat($event)"
+            ([ngModal])="(update_veri?.price)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Ürün Kategorisi</label
+          >
+          <select
+            class="form-control"
+            required
+            id="categoryId"
+            name="categoryId"
+            [formControl]="category"
+            ([ngModal])="(update_veri?.categoryId)"
+          >
+            <option *ngFor="let category of kategori" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+
+        <button
+          (click)="guncelleme_islemi()"
+          type="submit"
+          class="btn btn-primary"
+        >
+          Ürünü Güncelle
+        </button>
+        <button (click)="sayfa_kapama()" type="button" class="btn btn-warning">
+          Güncellemeden Vazgeç
+        </button>
+      </form>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>

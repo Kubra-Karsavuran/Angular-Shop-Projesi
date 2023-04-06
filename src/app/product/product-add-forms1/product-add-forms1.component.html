@@ -1,0 +1,123 @@
+<div class="container" style="margin-top: 50px">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <h3>Yeni Ürün Ekle</h3>
+      <form
+        style="align-items: center; justify-content: center"
+        #productAddForm="ngForm"
+        (ngSubmit)="add(productAddForm)"
+      >
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Ürün Adı</label>
+          <input
+            type="text"
+            placeholder="Ürün Adı"
+            #name="ngModel"
+            [(ngModel)]="deneme.name"
+            class="form-control"
+            name="name"
+            id="name"
+            required
+          />
+
+          <div *ngIf="name.invalid && name.dirty" class="alert alert-danger">
+            Ürün İsmi Gereklidir
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Ürün Açıklaması</label
+          >
+          <input
+            type="text"
+            placeholder="Açıklama Adı"
+            #description="ngModel"
+            [(ngModel)]="deneme.description"
+            class="form-control"
+            name="description"
+            id="description"
+            required
+          />
+          <div
+            *ngIf="description.invalid && description.dirty"
+            class="alert alert-danger"
+          >
+            Açıklama Gereklidir
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Ürün Resmi</label>
+          <input
+            type="text"
+            placeholder="Ürün Resmi"
+            #imageUrl="ngModel"
+            [(ngModel)]="deneme.imageUrl"
+            class="form-control"
+            name="imageUrl"
+            id="imageUrl"
+            required
+          />
+          <div
+            *ngIf="imageUrl.invalid && imageUrl.dirty"
+            class="alert alert-danger"
+          >
+            Fotoğraf Gereklidir
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Ürün Fiyatı</label>
+          <input
+            type="text"
+            placeholder="Ürün Fiyatı"
+            #price="ngModel"
+            [(ngModel)]="deneme.price"
+            class="form-control"
+            name="price"
+            id="price"
+            required
+          />
+          <div *ngIf="price.invalid && price.dirty" class="alert alert-danger">
+            Fiyat Gereklidir
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Ürün Kategorisi</label
+          >
+          <select
+            class="form-control"
+            #categoryId="ngModel"
+            [(ngModel)]="deneme.categoryId"
+            required
+            id="categoryId"
+            name="categoryId"
+          >
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="categoryId.invalid && categoryId.touched"
+            class="alert alert-danger"
+          >
+            Kategori Gereklidir
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="productAddForm.invalid"
+        >
+          Ürün Ekle
+        </button>
+      </form>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
