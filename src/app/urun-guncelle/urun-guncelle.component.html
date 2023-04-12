@@ -66,7 +66,6 @@
             required
             [value]="veri?.imageUrl"
             (keyup)="onKeyUpUrl($event)"
-            ([ngModal])="(update_veri?.imageUrl)"
           />
         </div>
 
@@ -81,7 +80,6 @@
             name="guncel_name"
             [value]="veri?.name"
             (keyup)="onKeyUpAdi($event)"
-            ([ngModal])="(update_veri?.name)"
           />
         </div>
 
@@ -97,7 +95,6 @@
             [value]="veri?.description"
             name="guncel_description"
             (keyup)="onKeyUpAciklama($event)"
-            ([ngModal])="(update_veri?.description)"
           />
         </div>
 
@@ -113,7 +110,6 @@
             [value]="veri?.price"
             name="guncel_price"
             (keyup)="onKeyUpFiyat($event)"
-            ([ngModal])="(update_veri?.price)"
           />
         </div>
 
@@ -127,7 +123,6 @@
             id="categoryId"
             name="categoryId"
             [formControl]="category"
-            ([ngModal])="(update_veri?.categoryId)"
           >
             <option *ngFor="let category of kategori" [value]="category.id">
               {{ category.name }}
